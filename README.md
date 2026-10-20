@@ -25,7 +25,7 @@ Empty cache, capacity 1, overwrite, eviction order, `get` refreshing recency, TT
 
 ## Results
 
-Measured with `make bench` (`-O2`, no sanitizers) on [your Mac model and chip]. Each row runs the same 2,000,000 operations split across the given number of threads, on a cache of capacity 10,000 with keys drawn from 0 to 19,999 (about 50% hit rate) and 10% of operations being writes. Five runs; the table shows the median and the range.
+Measured with `make bench` (`-O2`, no sanitizers) on Mac Pro, M5 pro Chip. Each row runs the same 2,000,000 operations split across the given number of threads, on a cache of capacity 10,000 with keys drawn from 0 to 19,999 (about 50% hit rate) and 10% of operations being writes. Five runs; the table shows the median and the range.
 
 | Threads | ops/sec (median) | Range across 5 runs |
 |---------|------------------|---------------------|
