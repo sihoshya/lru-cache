@@ -25,14 +25,15 @@ Empty cache, capacity 1, overwrite, eviction order, `get` refreshing recency, TT
 
 ## Results
 
-Fill in from `make bench` on your machine, for example:
+Measured with make bench (-O2, no sanitizers) on [your Mac model and chip]. Each row runs the same 2,000,000 operations split across the given number of threads, on a cache of capacity 10,000 with keys drawn from 0 to 19,999 (about 50% hit rate) and 10% of operations being writes. Five runs; the table shows the median and the range.
 
-| Threads | ops/sec |
-|---------|---------|
-| 1       | [fill in] |
-| 8       | [fill in] |
+Threads	ops/sec (median)	Range across 5 runs
+1	    33.3 million	    31.3 to 33.8 million
+2	    14.4 million	    14.0 to 15.5 million
+4	    10.5 million	    9.5 to 10.8 million
+8	    6.4 million	        6.3 to 6.5 million
 
-With one global lock, more threads add contention instead of speed.
+Throughput falls as threads are added: 8 threads run about 5x slower than 1 thread on the same total work. The cause is the single global mutex. Every get and put takes it, so threads mostly wait on each other, and handing the lock between cores costs more than the short operations themselves.
 
 ## Next steps
 
